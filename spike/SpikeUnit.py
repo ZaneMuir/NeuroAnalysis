@@ -123,10 +123,14 @@ def import_spike_train_data(session, mouse_id, mat, csv='',
         spike_marker:   SpikeMarker
     """
     _mat_file = os.path.join(data_dir, mat)
-    _csv_file = os.path.join(data_dir, csv)
+
     _spike_marker_raw = None
     _spike_trains_raw = {}
-    _marker_table = pd.read_csv(_csv_file) if csv else None
+    if isinstance(csv, pd.DataFrame):
+        _marker_table = csv
+    else:
+        _csv_file = os.path.join(data_dir, csv)
+        _marker_table = pd.read_csv(_csv_file) if csv else None
 
     with h5py.File(_mat_file,"r") as f:
         for channel in f.keys():
