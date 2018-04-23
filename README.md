@@ -11,3 +11,5 @@ Spike
 - numpy
 - pandas
 - h5py
+- matplotlib
+- scipy
