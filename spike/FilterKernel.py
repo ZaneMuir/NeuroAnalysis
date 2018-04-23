@@ -1,4 +1,4 @@
-import SpikeUnit
+from .SpikeUnit import SpikeUnit
 import numpy as np
 
 
@@ -57,7 +57,7 @@ def kernel(name, **args):
 
 
 def _check_and_convert_to_ndarray(subject):
-    if isinstance(subject,SpikeUnit.SpikeUnit):
+    if isinstance(subject,SpikeUnit):
         target = subject.spike_train
     elif isinstance(subject,list):
         target = np.array(subject)
@@ -73,14 +73,17 @@ def generate_linear_filter(to, k):
     return lambda t: np.sum(k(target - t))
 
 
-def apply_linear_filter(to, k, x_range=None, step=1000, returnX=True):
+def apply_linear_filter(to, k, x_range=None, nbins=1000, returnX=True):
+    """
+
+    """
     target = _check_and_convert_to_ndarray(to)
     linear_filter = generate_linear_filter(to, k)
 
     if x_range is None:
-        x_range = np.linspace(0, target[-1], step)
+        x_range = np.linspace(0, target[-1], nbins)
     elif isinstance(x_range, tuple) or isinstance(x_range, list):
-        x_range = np.linspace(x_range[0], x_range[1], step)
+        x_range = np.linspace(x_range[0], x_range[1], nbins)
     elif isinstance(x_range, np.ndarray):
         returnX = False
         pass
@@ -93,13 +96,13 @@ def apply_linear_filter(to, k, x_range=None, step=1000, returnX=True):
         return np.array(list(map(linear_filter, x_range)))
 
 
-def apply_linear_filter_withroi(train, k, starts, roi=(0,0), step=1000, pbar=None):
+def apply_linear_filter_withroi(train, k, starts, roi=(0,0), nbins=1000, pbar=None):
     _mean_response = None
 
     for each_start in starts:
         a = apply_linear_filter(train, k,
                                 x_range=(each_start+roi[0], each_start+roi[1]),
-                                step=step, returnX=False)
+                                nbins=nbins, returnX=False)
         if _mean_response is None:
             _mean_response = a
         else:

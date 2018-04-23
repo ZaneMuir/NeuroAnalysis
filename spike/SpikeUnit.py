@@ -4,7 +4,7 @@
 
 import pandas as pd
 import numpy as np
-# import scipy.io
+import scipy.io
 import h5py
 import os
 
@@ -132,12 +132,21 @@ def import_spike_train_data(session, mouse_id, mat, csv='',
         _csv_file = os.path.join(data_dir, csv)
         _marker_table = pd.read_csv(_csv_file) if csv else None
 
-    with h5py.File(_mat_file,"r") as f:
-        for channel in f.keys():
+    try:
+        with h5py.File(_mat_file,"r") as f: # for v7 mat file
+            for channel in f.keys():
+                if channel == mat_marker_channel:
+                    _spike_marker_raw = f.get(channel)['times'].value[0]
+                else:
+                    _spike_trains_raw[channel] = f.get(channel)['times'].value[0]
+    except OSError:
+        # for v4 v5 v6 mat file
+        _raw_data = scipy.io.loadmat(_mat_file)
+        for channel in [item for item in _raw_data if item[0] != '_']:
             if channel == mat_marker_channel:
-                _spike_marker_raw = f.get(channel)['times'].value[0]
+                _spike_marker_raw = _raw_data[channel]['times'][0][0].transpose()[0]
             else:
-                _spike_trains_raw[channel] = f.get(channel)['times'].value[0]
+                _spike_trains_raw[channel] = _raw_data[channel]['times'][0][0].transpose()[0]
 
     spike_trains = {}
     spike_marker = SpikeMarker(session, mouse_id, _marker_table, _spike_marker_raw, csv_chunker)
