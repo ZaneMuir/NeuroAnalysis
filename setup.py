@@ -15,7 +15,7 @@ URL = 'https://github.com/ZaneMuir/NeuroAnalysis'
 EMAIL = 'zanemuir1995@gmail.com'
 AUTHOR = 'Zane Muir'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = "0.1"
+VERSION = "0.1-dev"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
