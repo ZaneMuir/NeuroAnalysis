@@ -19,7 +19,7 @@ VERSION = "0.1"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'numpy', 'h5py', 'pandas',
+    'numpy', 'h5py', 'pandas', 'scipy', 'matplotlib', 'tqdm'
 ]
 
 # The rest you shouldn't have to touch too much :)
