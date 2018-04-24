@@ -1,6 +1,7 @@
 Spike
 
 [![Build Status](https://travis-ci.org/ZaneMuir/NeuroAnalysis.svg?branch=master)](https://travis-ci.org/ZaneMuir/NeuroAnalysis)
+[![Coverage Status](https://coveralls.io/repos/github/ZaneMuir/NeuroAnalysis/badge.svg?branch=master)](https://coveralls.io/github/ZaneMuir/NeuroAnalysis?branch=master)
 
 ---
 
