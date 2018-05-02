@@ -9,7 +9,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'spike'
+NAME = 'neuroanalysis'
 DESCRIPTION = 'Spike train basic analysis.'
 URL = 'https://github.com/ZaneMuir/NeuroAnalysis'
 EMAIL = 'zanemuir1995@gmail.com'

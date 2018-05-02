@@ -5,3 +5,7 @@ from .FilterKernel import kernel, apply_linear_filter_withroi
 from .SpikeVisualization import plot_curve_with_error_ribbon
 
 from .tools import *
+
+__all__ = [
+    'SpikeUnit', 'SpikeMarker', 'import_spike_train_data'
+]

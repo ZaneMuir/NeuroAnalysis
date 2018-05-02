@@ -11,8 +11,11 @@ def gaussian_kernel(sigma):
 
 
 def causal_kernel(alpha):
-    """The causal kernel.
-    $$w(\\tau) = [\\alpha^2 \\tau \exp(- \\alpha \\tau)]_+$$
+    """
+The causal kernel.
+
+.. math::
+    w(\\tau) = [\\alpha^2 \\tau \\exp(- \\alpha \\tau)]_+
     """
     def causal(t):
         v = alpha**2 * t * np.exp(-alpha*t)
@@ -22,29 +25,42 @@ def causal_kernel(alpha):
 
 
 def rectangular_kernel(delta):
-    """Moving rectangular kernel.
-    $$ w(\tau) = \begin{cases}
-    \frac{1}{\Delta t} &,\ -\frac{\Delta t}{2} \leq t \leq \frac{\Delta t}{2} \\
-    0 &,\ otherwise
-    \end{cases}$$
+    """
+Moving rectangular kernel.
+
+.. math::
+    w(\\tau) = \\begin{cases}
+    \\frac{1}{\Delta t} &,\\ -\\frac{\Delta t}{2} \\leq t \\leq \\frac{\\Delta t}{2} \\\\
+    0 &,\\ otherwise
+    \\end{cases}
+    
     """
     return lambda t: np.ones_like(t[(t>=-delta/2)&(t<=delta/2)]) / delta
 
 
 def kernel(name, **args):
-    """Get the kernel function.
+    """
+Get the kernel function.
 
-    Kernels:
-        - gaussian, args: [sigma]
-        - causal, args: [alpha]
-        - square, args: [delta]
+Kernels:
+    - gaussian, args: [sigma]
+    - causal, args: [alpha]
+    - square, args: [delta]
 
-    Args:
-        name:   name of the kernel
-        **args: arguments for each kernel.
+Args:
+    - name:   name of the kernel
+    - \*\*args: arguments for each kernel.
 
-    Return:
-        kernel function in lambda.
+Return:
+    - kernel function in lambda.
+
+Example:
+
+.. code-block:: python
+
+    >>> kernel('guassian', {'sigma':0.4})
+
+    
     """
     if name == "gaussian":
         return gaussian_kernel(**args)

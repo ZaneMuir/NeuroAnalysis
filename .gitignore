@@ -4,3 +4,5 @@ __pycache__/
 .pytest_cache/
 playground.*
 .vscode/
+docs/build/
+demo/data/

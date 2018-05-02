@@ -112,7 +112,7 @@ def import_spike_train_data(session, mouse_id, mat, csv='',
                             csv_chunker=None, chunker_args={'skip':["START", "QUIT"]}):
     """Import .mat and .csv data.
 
-    Args:
+    .. Args:
         session:    session name in string.
         mouse_id:   mouse name in string.
         mat:        .mat data file path.
@@ -122,7 +122,7 @@ def import_spike_train_data(session, mouse_id, mat, csv='',
                             [optional, default: DIG01]
         csv_chunker: custom csv chunker function [optional, default: None]
 
-    Returns:
+    .. Returns:
         spike_trains:   dict{channel_name: SpikeUnit}
         spike_marker:   SpikeMarker
     """
