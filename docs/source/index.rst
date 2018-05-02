@@ -5,10 +5,25 @@
 
 Welcome to neuroanalysis's documentation!
 =========================================
+Basic analysis methods for spike trains sorted from electrodes and fluorescence recorded from 
+two-photon imaging.
+
+Installation
+------------
+.. code-block:: bash
+
+    git clone git@github.com:ZaneMuir/NeuroAnalysis.git
+    cd NeuroAnalysis
+    python3 setup.py install
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+    :glob:
+    :caption: Contents:
+
+    install
+    module/*
+
 
 
 
