@@ -1,11 +1,32 @@
-import numpy as np 
+import numpy as np
 import re
 
 
 class CscReader(object):
-    """Neurolynx csc file reader"""
+    """Neurolynx csc file reader
 
+Unless you want to sort the spike from the sampling data,
+you shouldn't use this reader.
+
+Attributes:
+    - \_time: timeline in numpy.ndarray
+    - \_csc:  analogy voltage in numpy.ndarray
+    - \_raw:  raw data
+
+Example:
+
+.. code-block::python
+    >>> CscReader("path/to/csc/file")
+
+    >>> from neuroanalysis import reader
+    >>> mycsc = reader.neurolynx_read_csc("path/to/csc/file")
+    >>> mycsc._csc
+    >>> mycsc._time
+
+    
+"""
     def __init__(self, filename, with_analogy=True):
+        """Denoted as reader.neurolynx_read_csc"""
         with open(filename, 'rb') as _cscfile:
             self._header = ''.join([chr(i)
                                     for i in _cscfile.read(2**14) if i != 0])
@@ -29,7 +50,12 @@ class CscReader(object):
         return
 
     def getAttribute(self, attr):
-        """Get the key-value in the header."""
+        """
+Get the key-value in the header.
+
+Including:
+    - ADBitVolts
+        """
         __parser = r"-{attr} (.*?)\r\n".format(attr=attr)
         ans = re.findall(__parser, self._header)
         if len(ans) == 1:

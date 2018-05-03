@@ -9,7 +9,13 @@ import h5py
 import os
 
 class SpikeUnit(object):
-    """Storing information and data for each channel."""
+    """Storing information and data for each channel.
+
+Create a new SpikeUnit Object.
+
+You wouldn't normally create a SpikeUnit object yourself, this is done
+for you when retreiving a mat file from your data directory.
+    """
     def __init__(self, session, mouse_id, channel, spike_train):
         """Create a new SpikeUnit Object.
 
@@ -24,21 +30,21 @@ class SpikeUnit(object):
 def marker_validity(table, train, thresh=1.0):
     """Check .csv marker and .mat marker are valid or not.
 
-    Method:
-        the time shift between the first and the last marker of .csv and .mat
-        file shall be less than thresh.
+Method:
+    the time shift between the first and the last marker of .csv and .mat
+    file shall be less than thresh.
 
-    Args:
-        table:  the .csv marker in pd.DataFrame
-        train:  the .mat marker in np.array
-        thresh: the threshold, as float [optional, default: 1.0]
+Args:
+    table:  the .csv marker in pd.DataFrame
+    train:  the .mat marker in np.array
+    thresh: the threshold, as float [optional, default: 1.0]
 
-    Returns:
-        shift:  the shift value. i.e. how many markers in .csv is not recorded
-                in .mat markers.
+Returns:
+    shift:  the shift value. i.e. how many markers in .csv is not recorded
+            in .mat markers.
 
-    Raises:
-        ValueError: when it doesn't pass the validity test.
+Raises:
+    ValueError: when it doesn't pass the validity test.
     """
     shift = len(table) - len(train)
 
@@ -56,18 +62,29 @@ def marker_validity(table, train, thresh=1.0):
 
 
 class SpikeMarker(object):
-    """Storing and parsing marker information of each session."""
+    """Storing and parsing marker information of each session.
+
+Create a new SpikeMarker Object.
+
+You wouldn't normally create a SpikeMarker object yourself, this is done
+for you when retreiving a csv file from your data directory.
+
+Specially, the marker_table shall be a pandas.DataFrame, with coloumns
+("time", "marker"); if you have a different layout, you should write
+your own ```mark_chunker``` function, which returns a tuple:
+(pandas.DataFrame('time','marker'), dict{markname: timearray[]}).
+    """
     def __init__(self, session, mouse_id, marker_table, marker_train,
                  mark_chunker=None, chunker_args={'skip':["START", "QUIT"]}):
         """Create a new SpikeMarker Object.
 
-        You wouldn't normally create a SpikeMarker object yourself, this is done
-        for you when retreiving a csv file from your data directory.
+You wouldn't normally create a SpikeMarker object yourself, this is done
+for you when retreiving a csv file from your data directory.
 
-        Specially, the marker_table shall be a pandas.DataFrame, with coloumns
-        ("time", "marker"); if you have a different layout, you should write
-        your own ```mark_chunker``` function, which returns a tuple:
-        (pandas.DataFrame('time','marker'), dict{markname: timearray[]}).
+Specially, the marker_table shall be a pandas.DataFrame, with coloumns
+("time", "marker"); if you have a different layout, you should write
+your own ```mark_chunker``` function, which returns a tuple:
+(pandas.DataFrame('time','marker'), dict{markname: timearray[]}).
         """
         self.session = session          # string ::
         self.mouse_id = mouse_id        # string ::
@@ -112,19 +129,18 @@ def import_spike_train_data(session, mouse_id, mat, csv='',
                             csv_chunker=None, chunker_args={'skip':["START", "QUIT"]}):
     """Import .mat and .csv data.
 
-    .. Args:
-        session:    session name in string.
-        mouse_id:   mouse name in string.
-        mat:        .mat data file path.
-        csv:        .csv data file path. [optional, default: None]
-        data_dir:   data directory path. [optional, default: data/]
-        mat_marker_channel: the marker channel name in .mat file.
-                            [optional, default: DIG01]
-        csv_chunker: custom csv chunker function [optional, default: None]
+Args:
+    - session:    session name in string.
+    - mouse_id:   mouse name in string.
+    - mat:        .mat data file path.
+    - csv:        .csv data file path. [optional, default: None]
+    - data_dir:   data directory path. [optional, default: data/]
+    - mat_marker_channel: the marker channel name in .mat file. [optional, default: DIG01]
+    - csv_chunker: custom csv chunker function [optional, default: None]
 
-    .. Returns:
-        spike_trains:   dict{channel_name: SpikeUnit}
-        spike_marker:   SpikeMarker
+Returns:
+    - spike_trains:   dict{channel_name: SpikeUnit}
+    - spike_marker:   SpikeMarker
     """
     _mat_file = os.path.join(data_dir, mat)
 

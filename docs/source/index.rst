@@ -5,24 +5,37 @@
 
 Welcome to neuroanalysis's documentation!
 =========================================
-Basic analysis methods for spike trains sorted from electrodes and fluorescence recorded from 
+Basic analysis methods for spike trains sorted from electrodes and fluorescence recorded from
 two-photon imaging.
 
-Installation
-------------
+Quick Start
+-----------
+for python3 module:
+
 .. code-block:: bash
 
-    git clone git@github.com:ZaneMuir/NeuroAnalysis.git
-    cd NeuroAnalysis
-    python3 setup.py install
+    $ git clone git@github.com:ZaneMuir/NeuroAnalysis.git
+    $ cd NeuroAnalysis
+    $ python3 setup.py install
+    $ pip3 install -r requirements.txt
+
+for julia module (in julia REPL):
+
+.. code-block:: julia
+
+    >>> Pkg.clone("https://github.com/ZaneMuir/NeuralModel.jl.git")
+
+Contents
+--------
 
 .. toctree::
     :maxdepth: 2
     :glob:
-    :caption: Contents:
 
     install
-    module/*
+    workflow_mea
+    workflow_tpi
+    module/module
 
 
 
