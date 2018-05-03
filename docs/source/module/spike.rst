@@ -13,13 +13,13 @@ Filter Kernels
 --------------
 
 .. automodule:: neuroanalysis.spike.FilterKernel
-    :members: kernel
+    :members: gaussian_kernel, rectangular_kernel, causal_kernel
 
 Spike Units
 -----------
 
 .. automodule:: neuroanalysis.spike.SpikeUnit
-    :members:
+    :members: SpikeUnit, SpikeMarker, marker_validity
 
 Visualization
 -------------

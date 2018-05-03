@@ -15,6 +15,20 @@ def _calc_error(mean_response, ci):
 def plot_curve_with_error_ribbon(mean_response, roi,
                                  ci='std', error_alpha=0.1, markers=None,
                                  label='', color=None, plotax=plt):
+    """
+Plot curves with error ribbon.
+
+Args:
+    - mean_response: 1-d ndarray
+    - roi: timetuple, (starttime, endtime)
+    - ci: confidential interval level in float number between 0 to 1, default as 'std'
+    - error_alpha: alpha level of error ribbon, default as 0.1
+    - markers: lambda function for adding marker bars
+    - label: curve label name in str, default as None
+    - color: the color argument in matplotlib, default as None
+    - plotax: plot object, default as plt, i.e. matplotlib.pyplot
+
+    """
     _mean = np.mean(mean_response, axis=0)
     _ci = _calc_error(mean_response, ci=ci)
 

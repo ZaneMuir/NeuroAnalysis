@@ -3,9 +3,18 @@ import numpy as np
 
 
 def gaussian_kernel(sigma):
-    """The gaussian kernel.
-    $$w(\tau) = \\frac{1}{\sqrt{2 \pi} \sigma_w}
-    \exp(-\\frac{\\tau^2}{2 \sigma^2_w})$$
+    """
+The gaussian kernel.
+
+.. math ::
+    w(\\tau) = \\frac{1}{\\sqrt{2 \\pi} \\sigma_w}
+    \\exp(-\\frac{\\tau^2}{2 \\sigma^2_w})
+
+example:
+
+.. code-block:: python
+
+    >>> kernel('guassian', {'sigma': 0.4})
     """
     return lambda t: 1/(np.sqrt(2*np.pi)*sigma) * np.exp(-t**2/(2*sigma**2))
 
@@ -16,6 +25,12 @@ The causal kernel.
 
 .. math::
     w(\\tau) = [\\alpha^2 \\tau \\exp(- \\alpha \\tau)]_+
+
+example:
+
+.. code-block:: python
+
+    >>> kernel('causal', {'alpha': 0.4})
     """
     def causal(t):
         v = alpha**2 * t * np.exp(-alpha*t)
@@ -33,7 +48,13 @@ Moving rectangular kernel.
     \\frac{1}{\Delta t} &,\\ -\\frac{\Delta t}{2} \\leq t \\leq \\frac{\\Delta t}{2} \\\\
     0 &,\\ otherwise
     \\end{cases}
-    
+
+example:
+
+.. code-block:: python
+
+    >>> kernel('square', {'delta': 0.4})
+
     """
     return lambda t: np.ones_like(t[(t>=-delta/2)&(t<=delta/2)]) / delta
 
@@ -60,7 +81,7 @@ Example:
 
     >>> kernel('guassian', {'sigma':0.4})
 
-    
+
     """
     if name == "gaussian":
         return gaussian_kernel(**args)
@@ -85,12 +106,34 @@ def _check_and_convert_to_ndarray(subject):
 
 
 def generate_linear_filter(to, k):
+    """
+Convert the discrete spike train array into a linear filter funciton.
+
+Args:
+    - to: data in numpy.ndarray or SpikeUnit class
+    - k: kernel
+
+Returns:
+    - kernel lambda function
+
+    """
     target = _check_and_convert_to_ndarray(to)
     return lambda t: np.sum(k(target - t))
 
 
 def apply_linear_filter(to, k, x_range=None, nbins=1000, returnX=True):
     """
+Map linear filter into a ndarray.
+
+Args:
+    - to: data in numpy.ndarray or SpikeUnit class
+    - k: kernel
+    - x_range: time range tuple (starttime, endtime), default as None
+    - nbins: number of steps, default as 1000
+    - returnX: return timespan ndarray
+
+Returns:
+    - [X_range,] discrete_linear_filter
 
     """
     target = _check_and_convert_to_ndarray(to)
@@ -113,6 +156,20 @@ def apply_linear_filter(to, k, x_range=None, nbins=1000, returnX=True):
 
 
 def apply_linear_filter_withroi(train, k, starts, roi=(0,0), nbins=1000, pbar=None):
+    """
+Map linear filter into a ndarray with a region of interest.
+
+Args:
+    - to: data in numpy.ndarray or SpikeUnit class
+    - k: kernel
+    - starts: start time points in list or 1-d ndarray
+    - roi: region of interest, in time tuple (starttime, endtime)
+    - nbins: number of steps, default as 1000
+    - pbar: progress bar in tqdm
+
+Returns:
+    - _mean_response: 1-d ndarray
+    """
     _mean_response = None
 
     for each_start in starts:
