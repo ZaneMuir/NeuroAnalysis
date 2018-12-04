@@ -51,10 +51,10 @@ Example:
 
     def getAttribute(self, attr):
         """
-Get the key-value in the header.
+        Get the key-value in the header.
 
-Including:
-    - ADBitVolts
+        Including:
+            - ADBitVolts
         """
         __parser = r"-{attr} (.*?)\r\n".format(attr=attr)
         ans = re.findall(__parser, self._header)

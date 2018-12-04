@@ -1,5 +1,9 @@
-from .neurolynx import CscReader as neurolynx_read_csc
-
 __all__ = [
-    'neurolynx_read_csc'
+    "loadedf"
 ]
+
+from .rawdata import RawData
+from .edfdata import EDFData
+
+def loadedf(filename, expname):
+    return EDFData(filename, expname)
