@@ -4,6 +4,7 @@ class RawData(object):
     def __init__(self):
         super().__init__()
         self.data = np.zeros((0,0,0))
+        self._unit = 0.0
         self.freq = 0.0
         pass
     
