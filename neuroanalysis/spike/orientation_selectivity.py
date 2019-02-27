@@ -3,15 +3,17 @@ import numpy as np
 
 def calc_gOSI(R, theta=None, unit='rad', scalar=False):
     """
-    to calculate the global OSI from the tuing curve.
+    to calculate the global OSI from the tunning curve.
 
     argument:
     - R: the response of each direction.
 
     keyword arguments:
-    - theta: the directions. if None, theta will be calculated automatically as evenly distributed from [0, 2pi). [default: None]
+    - theta: the directions. if None, theta will be calculated automatically
+             as evenly distributed from [0, 2pi). [default: None]
     - unit: the unit of the theta, either be 'deg' or 'rad'. [default: rad]
-    - scalar: if True, return a tuple as (phase, gOSI value) or (angle, gOSI value); otherwise, return the complex format. [default: False]
+    - scalar: if True, return a tuple as (phase, gOSI value) or (angle, gOSI value);
+             otherwise, return the complex format. [default: False]
 
     return:
     - the gOSI complex number or tuple of (phase, gOSI value) or (angle, gOSI value).
