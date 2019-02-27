@@ -66,9 +66,11 @@ def calc_gDSI(R, theta=None, unit='rad', scalar=False):
     - R: the response of each direction.
 
     keyword arguments:
-    - theta: the directions. if None, theta will be calculated automatically as evenly distributed from [0, 2pi). [default: None]
+    - theta: the directions. if None, theta will be calculated automatically
+             as evenly distributed from [0, 2pi). [default: None]
     - unit: the unit of the theta, either be 'deg' or 'rad'. [default: rad]
-    - scalar: if True, return a tuple as (phase, gDSI value) or (angle, gDSI value); otherwise, return the complex format. [default: False]
+    - scalar: if True, return a tuple as (phase, gDSI value) or (angle, gDSI value);
+             otherwise, return the complex format. [default: False]
 
     return:
     - the gDSI complex number or tuple of (phase, gDSI value) or (angle, gDSI value).
