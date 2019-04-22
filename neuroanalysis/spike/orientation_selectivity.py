@@ -60,7 +60,7 @@ def calc_gOSI(R, theta=None, unit='rad', scalar=False):
 
 def calc_gDSI(R, theta=None, unit='rad', scalar=False):
     """
-    to calculate the global DSI from the tuing curve.
+    to calculate the global DSI from the tunning curve.
 
     argument:
     - R: the response of each direction.
