@@ -23,7 +23,7 @@ Spike
 
 ### todo
 - package structure
-    - [ ] uniform data structure
+    - [x] uniform data structure
     - [ ] reusable API and protocols
 - multi unit
     - [ ] optimize crosscorrelogram and further statistical test
